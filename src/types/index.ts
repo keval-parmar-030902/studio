@@ -8,5 +8,6 @@ export interface Task {
 export interface User {
   id: string;
   email: string;
-  // Add other user-specific fields if needed
+  firstName?: string; // Optional: for users registered before this change or via simplified login
+  lastName?: string;  // Optional: for users registered before this change or via simplified login
 }

@@ -68,6 +68,10 @@ export default function DashboardPage() {
 
   const completedTaskTexts = tasks.filter(task => task.completed).map(task => task.text);
 
+  const displayName = user?.firstName && user?.lastName 
+    ? `${user.firstName} ${user.lastName}` 
+    : user?.email;
+
   return (
     <div className="space-y-8">
       <div>
@@ -75,7 +79,7 @@ export default function DashboardPage() {
           My Day
         </h1>
         <p className="text-muted-foreground">
-          What&apos;s on your agenda today, {user?.email}?
+          What&apos;s on your agenda today, {displayName}?
         </p>
       </div>
 

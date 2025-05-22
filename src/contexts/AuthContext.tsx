@@ -9,7 +9,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string) => Promise<void>; // Simplified login
   logout: () => Promise<void>;
-  register: (email: string) => Promise<void>; // Simplified register
+  register: (email: string, firstName: string, lastName: string) => Promise<void>; // Updated register
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,6 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 500));
+    // Login mock doesn't include first/last name, real app would fetch full user data
     const mockUser: User = { id: 'mock-user-id-' + Date.now(), email };
     setUser(mockUser);
     localStorage.setItem('dayscribe-user', JSON.stringify(mockUser));
@@ -43,11 +44,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     router.push('/dashboard');
   };
 
-  const register = async (email: string) => {
+  const register = async (email: string, firstName: string, lastName: string) => {
     setLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 500));
-    const mockUser: User = { id: 'mock-user-id-' + Date.now(), email };
+    const mockUser: User = { id: 'mock-user-id-' + Date.now(), email, firstName, lastName };
     setUser(mockUser);
     localStorage.setItem('dayscribe-user', JSON.stringify(mockUser));
     setLoading(false);
