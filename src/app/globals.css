@@ -18,7 +18,7 @@ body {
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
 
-    --primary: 208 48% 54%; /* #558BBD Calming Blue */
+    --primary: 175 55% 45%; /* Teal */
     --primary-foreground: 0 0% 98%; /* Light text on primary */
 
     --secondary: 0 0% 94%; /* Light grey for secondary elements */
@@ -35,7 +35,7 @@ body {
 
     --border: 0 0% 87%; /* Light grey border */
     --input: 0 0% 92%; /* Slightly darker grey for input backgrounds */
-    --ring: 208 48% 50%; /* Slightly desaturated primary for ring */
+    --ring: 175 55% 42%; /* Slightly darker Teal for ring */
 
     --radius: 0.5rem;
 
@@ -49,17 +49,17 @@ body {
     /* Sidebar variables - Light Theme */
     --sidebar-background: 0 0% 96%; /* Off-white / Very light grey */
     --sidebar-foreground: 20 14.3% 10%; /* Dark text */
-    --sidebar-primary: 208 48% 54%;
+    --sidebar-primary: 175 55% 45%; /* Teal */
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 276 26% 60%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 85%;
-    --sidebar-ring: 208 48% 60%;
+    --sidebar-ring: 175 55% 50%; /* Slightly lighter Teal for sidebar ring */
   }
 
   /* Dark Theme */
   .dark {
-    --background: 20 14.3% 4.1%; /* Dark mode default from original :root */
+    --background: 20 14.3% 4.1%; /* Dark mode default */
     --foreground: 0 0% 98%; /* Light text for dark background */
 
     --card: 20 14.3% 8%; /* Slightly lighter than background for cards */
@@ -68,7 +68,7 @@ body {
     --popover: 20 14.3% 6%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 208 48% 54%; /* #558BBD Calming Blue - consistent */
+    --primary: 175 55% 45%; /* Teal - consistent */
     --primary-foreground: 0 0% 98%; /* Text on primary - consistent */
 
     --secondary: 20 10% 15%;
@@ -85,7 +85,7 @@ body {
 
     --border: 0 0% 30%;
     --input: 0 0% 25%;
-    --ring: 208 48% 60%; /* Related to primary - consistent */
+    --ring: 175 55% 50%; /* Related to primary (Teal) - consistent */
     
     /* Chart colors for dark theme (can be same or adjusted) */
     --chart-1: 220 70% 50%;
@@ -97,12 +97,12 @@ body {
     /* Sidebar variables - Dark Theme */
     --sidebar-background: 20 14.3% 6%; /* Dark sidebar background */
     --sidebar-foreground: 0 0% 95%; /* Light text on dark sidebar */
-    --sidebar-primary: 208 48% 54%;
+    --sidebar-primary: 175 55% 45%; /* Teal */
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 276 26% 60%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 208 48% 60%;
+    --sidebar-ring: 175 55% 50%; /* Teal */
   }
 }
 
