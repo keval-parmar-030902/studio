@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning> {/* Remove hardcoded "dark", add suppressHydrationWarning */}
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} antialiased bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
