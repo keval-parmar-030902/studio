@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { User } from '@/types';
@@ -30,12 +31,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const parsedUser: User = JSON.parse(storedUser);
       setUser(parsedUser);
       // Initial redirection logic based on onboarding status
-      if (parsedUser && parsedUser.hasCompletedOnboarding === false) {
-        router.replace('/onboarding/daily-tasks');
-      }
+      // This check should ideally happen where navigation decisions are made,
+      // e.g., in a wrapper component or page/layout effects.
+      // For now, it's here for simplicity from previous iterations.
+      // if (parsedUser && parsedUser.hasCompletedOnboarding === false) {
+      //   router.replace('/onboarding/daily-tasks');
+      // }
     }
     setLoading(false);
-  }, [router]);
+  }, []); // Removed router from dependencies to avoid re-triggering on route changes from within this effect.
 
   const updateUserInStorageAndState = (updatedUser: User) => {
     setUser(updatedUser);
@@ -45,26 +49,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (email: string) => {
     setLoading(true);
     await new Promise(resolve => setTimeout(resolve, 500));
-    // This is a mock login. In a real app, you'd fetch full user data.
-    // For simplicity, if a user with this email exists in localStorage, we use that,
-    // otherwise, create a new one. This isn't secure for a real app.
+    
     const storedUser = localStorage.getItem('dayscribe-user');
     let loggedInUser: User | null = null;
+
     if (storedUser) {
         const existingUser = JSON.parse(storedUser) as User;
+        // In a real app, you'd verify password here.
+        // For mock, we assume if email matches, it's the user.
         if (existingUser.email === email) {
             loggedInUser = existingUser;
         }
     }
+    
     if (!loggedInUser) {
-        // If user not found by email from storage, create a basic one.
-        // This part of mock would need more robust handling in real app or if multiple users were truly supported by mock.
-        loggedInUser = { id: 'mock-user-id-' + Date.now(), email, hasCompletedOnboarding: true }; // Assume existing user completed onboarding
+        // If user not found by email from storage, create a basic one with mock names.
+        // This part of mock would need more robust handling in real app.
+        loggedInUser = { 
+          id: 'mock-user-id-' + Date.now(), 
+          email, 
+          firstName: "Demo", // Added mock first name
+          lastName: "User",   // Added mock last name
+          hasCompletedOnboarding: true // Assume existing/newly-mocked user completed onboarding if not specified
+        };
     }
     
     updateUserInStorageAndState(loggedInUser);
     setLoading(false);
-    if (loggedInUser.hasCompletedOnboarding === false) {
+
+    if (loggedInUser.hasCompletedOnboarding === false) { // Check onboarding status
       router.push('/onboarding/daily-tasks');
     } else {
       router.push('/dashboard');
@@ -89,10 +102,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async () => {
     setLoading(true);
     await new Promise(resolve => setTimeout(resolve, 500));
+    const currentUserId = user?.id; // Get user ID before clearing user state
     setUser(null);
     localStorage.removeItem('dayscribe-user');
-    // Also clear tasks for logged out user to simulate clean session, optional
-    // localStorage.removeItem(`dayscribe-tasks-${user?.id}`); 
+    
+    // Optionally clear tasks for the logged-out user
+    if (currentUserId) {
+      localStorage.removeItem(`dayscribe-tasks-${currentUserId}`);
+    }
+    
     setLoading(false);
     router.push('/login');
   };
