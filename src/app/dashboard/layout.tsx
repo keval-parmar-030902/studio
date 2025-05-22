@@ -1,3 +1,4 @@
+
 "use client";
 
 import Header from "@/components/shared/Header";
@@ -14,13 +15,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     if (!loading) {
       if (!user) {
         router.replace("/login");
-      } else if (user.hasCompletedOnboarding === false) { // Check onboarding status
-        router.replace("/onboarding/daily-tasks");
       }
+      // Removed onboarding check
     }
   }, [user, loading, router]);
 
-  if (loading || !user || user.hasCompletedOnboarding === false) { // Updated condition
+  if (loading || !user) { // Simplified condition
     return (
       <div className="flex h-screen items-center justify-center bg-background">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />

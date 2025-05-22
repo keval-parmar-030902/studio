@@ -1,15 +1,16 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { LogOut, UserCircle, Settings } from "lucide-react"; // Added Settings icon
+import { LogOut, UserCircle } from "lucide-react"; // Removed Settings icon
 import Link from "next/link";
 import { ThemeToggleButton } from "./ThemeToggleButton";
-import { useRouter } from "next/navigation"; // For navigation
+// import { useRouter } from "next/navigation"; // No longer needed for settings
 
 export default function Header() {
   const { user, logout, loading } = useAuth();
-  const router = useRouter();
+  // const router = useRouter(); // No longer needed for settings
 
   const displayName = user?.firstName && user?.lastName 
     ? `${user.firstName} ${user.lastName}` 
@@ -29,22 +30,14 @@ export default function Header() {
             </div>
           )}
           <ThemeToggleButton />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.push('/dashboard/settings')}
-            aria-label="Settings"
-            className="text-muted-foreground hover:text-accent-foreground"
-          >
-            <Settings className="h-5 w-5" />
-          </Button>
+          {/* Settings button removed */}
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={logout} 
             disabled={loading} 
             aria-label="Logout"
-            className="text-muted-foreground hover:text-accent-foreground"
+            className="text-accent hover:text-accent-foreground" // Ensure consistent hover
           >
             <LogOut className="h-5 w-5" />
           </Button>

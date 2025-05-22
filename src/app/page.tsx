@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect } from 'react';
@@ -12,11 +13,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!loading) {
       if (user) {
-        if (user.hasCompletedOnboarding === false) { // Check onboarding status
-          router.replace('/onboarding/daily-tasks');
-        } else {
-          router.replace('/dashboard');
-        }
+        router.replace('/dashboard'); // Always go to dashboard if logged in
       } else {
         router.replace('/login');
       }
