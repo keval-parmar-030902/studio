@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -19,7 +20,20 @@ export default function DashboardPage() {
     if (user) {
       const storedTasks = localStorage.getItem(`dayscribe-tasks-${user.id}`);
       if (storedTasks) {
-        setTasks(JSON.parse(storedTasks));
+        try {
+          const parsedTasks: Task[] = JSON.parse(storedTasks);
+          setTasks(parsedTasks);
+        } catch (error) {
+          console.error("Failed to parse tasks from localStorage:", error);
+          toast({
+            variant: "destructive",
+            title: "Error Loading Tasks",
+            description: "Could not load your tasks. localStorage might be corrupted.",
+          });
+          setTasks([]); // Initialize with empty array on error
+        }
+      } else {
+        setTasks([]); // Initialize with empty array if no tasks in storage
       }
     }
   }, [user]);
