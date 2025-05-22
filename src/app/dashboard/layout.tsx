@@ -11,12 +11,16 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.replace("/login");
+    if (!loading) {
+      if (!user) {
+        router.replace("/login");
+      } else if (user.hasCompletedOnboarding === false) { // Check onboarding status
+        router.replace("/onboarding/daily-tasks");
+      }
     }
   }, [user, loading, router]);
 
-  if (loading || !user) {
+  if (loading || !user || user.hasCompletedOnboarding === false) { // Updated condition
     return (
       <div className="flex h-screen items-center justify-center bg-background">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />

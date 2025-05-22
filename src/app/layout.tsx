@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google'; // Geist_Mono removed as not explicitly requested
+import { Geist } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/components/shared/ThemeProvider'; // Import ThemeProvider
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,12 +21,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark"> 
+    <html lang="en" suppressHydrationWarning> {/* Remove hardcoded "dark", add suppressHydrationWarning */}
       <body className={`${geistSans.variable} antialiased bg-background text-foreground`}>
-        <AuthProvider>
-          {children}
-          <Toaster />
-        </AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

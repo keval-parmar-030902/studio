@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { LogOut, UserCircle } from "lucide-react";
 import Link from "next/link";
+import { ThemeToggleButton } from "./ThemeToggleButton"; // Import the theme toggle button
 
 export default function Header() {
   const { user, logout, loading } = useAuth();
@@ -14,7 +15,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
+      <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-6"> {/* Added px-6 for consistency */}
         <Link href="/dashboard" className="text-2xl font-bold text-primary">
           DayScribe
         </Link>
@@ -25,15 +26,16 @@ export default function Header() {
               <span className="hidden sm:inline">{displayName}</span>
             </div>
           )}
+          <ThemeToggleButton /> {/* Add theme toggle button here */}
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={logout} 
             disabled={loading} 
             aria-label="Logout"
-            className="text-accent" // Set default color to accent
+            className="text-muted-foreground hover:text-accent-foreground" // Adjusted hover for better visibility
           >
-            <LogOut className="h-5 w-5" /> {/* Icon inherits color */}
+            <LogOut className="h-5 w-5" />
           </Button>
         </div>
       </div>

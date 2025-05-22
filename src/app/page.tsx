@@ -12,7 +12,11 @@ export default function HomePage() {
   useEffect(() => {
     if (!loading) {
       if (user) {
-        router.replace('/dashboard');
+        if (user.hasCompletedOnboarding === false) { // Check onboarding status
+          router.replace('/onboarding/daily-tasks');
+        } else {
+          router.replace('/dashboard');
+        }
       } else {
         router.replace('/login');
       }
